@@ -94,7 +94,10 @@ export const CreateNoteForm = () => {
 						<div className="text-sm text-red-500 text-center">{errorContent}</div>
 					)}
 				</div>
-				<div className="flex justify-end">
+				<div className="flex gap-2 justify-end">
+					<Button type="button" variant="ghost" onClick={() => router.back()}>
+						Cancel
+					</Button>
 					<Button type="submit" disabled={isLoading}>
 						{isLoading ? "Submitting..." : "Submit"}
 					</Button>

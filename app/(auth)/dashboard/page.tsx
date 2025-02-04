@@ -37,7 +37,7 @@ export default async function Page() {
 					</Button>
 				</Link>
 			</div>
-			{data.map((note) => (
+			{data && data.map((note) => (
 				<CardUserNote key={note.id} note={note} />
 			))}
 		</div>

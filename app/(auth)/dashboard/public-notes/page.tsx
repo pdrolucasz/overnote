@@ -24,7 +24,7 @@ export default async function Page() {
 
 	return (
 		<div className="min-h-[100vh] flex-1 md:min-h-min space-y-4 p-4 pt-0">
-			{data.map((note) => (
+			{data && data.map((note) => (
 				<CardPublicNote key={note.id} note={note} />
 			))}
 		</div>

@@ -9,11 +9,13 @@ export default async function Page() {
 		return cookies().get(name)?.value ?? ""
 	}
 
-	const sessionTokenAuthJs = await getCookie('authjs.session-token')
+	const cookieSearch = process.env.NODE_ENV === "development" ? "authjs.session-token" : "__Secure-authjs.session-token"
+
+	const sessionTokenAuthJs = await getCookie(cookieSearch)
 
 	const response = await fetch(getApiUrl("/public-notes"), {
 		headers: {
-			'Cookie': `authjs.session-token=${sessionTokenAuthJs}`
+			'Cookie': `${cookieSearch}=${sessionTokenAuthJs}`
 		},
 		next: {
 			tags: ["get-notes"]

@@ -4,7 +4,7 @@ import { Plus } from "lucide-react"
 
 import { getApiUrl } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { UserNote } from "@/components/card-user-note"
+import { CardUserNote, UserNote } from "@/components/card-user-note"
 
 export default async function Page() {
 	const getCookie = async (name: string) => {
@@ -24,8 +24,6 @@ export default async function Page() {
 
 	const data: UserNote[] = await response.json()
 
-	console.log(data)
-
 	return (
 		<div className="min-h-[100vh] flex-1 md:min-h-min space-y-4 p-4 pt-0">
 			<div className="flex justify-end">
@@ -39,9 +37,9 @@ export default async function Page() {
 					</Button>
 				</Link>
 			</div>
-			{/* {data && data.map((note) => (
+			{data?.length && data.map((note) => (
 				<CardUserNote key={note.id} note={note} />
-			))} */}
+			))}
 		</div>
 	)
 }

@@ -13,7 +13,3 @@ várias funções de texto, imagem e vídeo. Adicionei somente o que considerei 
 4. Rode o comando `docker-compose up -d` para subir o banco de dados em um container
 5. Rode o comando `npx prisma migrate dev` para executar as migrations do banco de dados
 6. Rode o comando `npm run dev` para executar a aplicação
-
-# Link do deploy do sistema
-
-https://overnote-wheat.vercel.app/

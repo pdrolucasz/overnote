@@ -1,24 +1,30 @@
-import { headers } from "next/headers"
+import { cookies } from "next/headers"
 import { Calendar } from "lucide-react"
 import { redirect } from "next/navigation"
 
 import { getApiUrl } from "@/lib/utils"
 import { UserNote } from "@/components/card-user-note"
 
-async function getHeaderData(): Promise<HeadersInit> {
-	const headerData = headers()
-	return new Promise((resolve) =>
-		setTimeout(() => {
-			resolve(headerData)
-		}, 1000)
-	)
-}
+// async function getHeaderData(): Promise<HeadersInit> {
+// 	const headerData = headers()
+// 	return new Promise((resolve) =>
+// 		setTimeout(() => {
+// 			resolve(headerData)
+// 		}, 1000)
+// 	)
+// }
 
 export default async function ViewNote({ params }: { params: { id: string } }) {
-	const headerData = await getHeaderData()
+	const getCookie = async (name: string) => {
+		return cookies().get(name)?.value ?? ""
+	}
+
+	const sessionTokenAuthJs = await getCookie('authjs.session-token')
 
 	const response = await fetch(getApiUrl(`/public-notes/${params.id}`), {
-		headers: headerData,
+		headers: {
+			'Cookie': `authjs.session-token=${sessionTokenAuthJs}`
+		},
 		next: {
 			tags: [params.id]
 		}

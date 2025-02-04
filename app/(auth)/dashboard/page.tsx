@@ -1,31 +1,22 @@
 import Link from "next/link"
-import { headers } from "next/headers"
+import { cookies } from "next/headers"
 import { Plus } from "lucide-react"
 
 import { getApiUrl } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { CardUserNote, UserNote } from "@/components/card-user-note"
 
-async function getHeaderData(): Promise<HeadersInit> {
-	const headerData = headers()
-	return new Promise((resolve) =>
-		setTimeout(() => {
-			resolve(headerData)
-		}, 1000)
-	)
-}
-
 export default async function Page() {
-	// const getCookie = async (name: string) => {
-	// 	return cookies().get(name)?.value ?? ""
-	// }
+	const getCookie = async (name: string) => {
+		return cookies().get(name)?.value ?? ""
+	}
 
-	// const sessionTokenAuthJs = await getCookie('authjs.session-token')
-
-	const headerData = await getHeaderData()
+	const sessionTokenAuthJs = await getCookie('authjs.session-token')
 
 	const response = await fetch(getApiUrl("/user-notes"), {
-		headers: headerData,
+		headers: {
+			'Cookie': `authjs.session-token=${sessionTokenAuthJs}`
+		},
 		next: {
 			tags: ["get-notes"]
 		}

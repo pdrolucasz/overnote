@@ -6,6 +6,15 @@ import { getApiUrl } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { CardUserNote, UserNote } from "@/components/card-user-note"
 
+async function getHeaderData(): Promise<HeadersInit> {
+	const headerData = headers()
+	return new Promise((resolve) =>
+		setTimeout(() => {
+			resolve(headerData)
+		}, 1000)
+	)
+}
+
 export default async function Page() {
 	// const getCookie = async (name: string) => {
 	// 	return cookies().get(name)?.value ?? ""
@@ -13,8 +22,10 @@ export default async function Page() {
 
 	// const sessionTokenAuthJs = await getCookie('authjs.session-token')
 
+	const headerData = await getHeaderData()
+
 	const response = await fetch(getApiUrl("/user-notes"), {
-		headers: headers(),
+		headers: headerData,
 		next: {
 			tags: ["get-notes"]
 		}

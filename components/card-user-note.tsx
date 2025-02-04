@@ -2,6 +2,7 @@
 
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Calendar, Pen, Share2, Trash2 } from "lucide-react"
 
 import { Tooltip, TooltipContent, TooltipTrigger } from "@radix-ui/react-tooltip"
@@ -13,7 +14,6 @@ import * as AlertDialog from "./ui/alert-dialog"
 
 import { useToast } from "@/hooks/use-toast"
 import { extractTextFromHTML } from "@/lib/utils"
-import revalidateTag from "./revalidate-tag"
 
 export type UserNote = {
 	id: string
@@ -31,6 +31,8 @@ interface CardUserNoteProps {
 }
 
 export const CardUserNote: FC<CardUserNoteProps> = ({ note }) => {
+	const router = useRouter()
+
 	const { isMobile } = useSidebar()
 	const { toast } = useToast()
 
@@ -69,6 +71,8 @@ export const CardUserNote: FC<CardUserNoteProps> = ({ note }) => {
 				return
 			}
 
+			router.refresh()
+
 			toast({
 				title: "Successful deleted.",
 				description: data.message,
@@ -85,7 +89,7 @@ export const CardUserNote: FC<CardUserNoteProps> = ({ note }) => {
 		} finally {
 			setIsLoading(false)
 		}
-	}, [note, toast])
+	}, [note, toast, router])
 
 	const handleToggleVisibility = useCallback(async () => {
 		try {
@@ -111,7 +115,7 @@ export const CardUserNote: FC<CardUserNoteProps> = ({ note }) => {
 				return
 			}
 
-			revalidateTag("get-notes")
+			router.refresh()
 
 			toast({
 				title: "Successful changed.",
@@ -129,7 +133,7 @@ export const CardUserNote: FC<CardUserNoteProps> = ({ note }) => {
 		} finally {
 			setIsLoading(false)
 		}
-	}, [note, toast])
+	}, [note, toast, router])
 
 	const handleShareNote = useCallback(async () => {
 		if (!note.isPublic) await handleToggleVisibility()

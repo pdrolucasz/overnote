@@ -6,7 +6,10 @@ import { CardPublicNote } from "@/components/card-public-note"
 
 export default async function Page() {
 	const response = await fetch(getApiUrl("/public-notes"), {
-		headers: headers()
+		headers: headers(),
+		next: {
+			tags: ["get-notes"]
+		}
 	})
 
 	const data: UserNote[] = await response.json()

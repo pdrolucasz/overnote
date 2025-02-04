@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { extractTextFromHTML } from "@/lib/utils"
+import revalidateTag from "./revalidate-tag"
 
 export const CreateNoteForm = () => {
 	const router = useRouter()
@@ -52,7 +53,10 @@ export const CreateNoteForm = () => {
 				return
 			}
 
-			router.back()
+			revalidateTag("get-notes")
+
+			router.refresh()
+			router.push("/dashboard")
 		} catch (error) {
 			console.error(error)
 			setError("Something went wrong. Please try again.")

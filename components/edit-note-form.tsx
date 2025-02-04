@@ -61,8 +61,8 @@ export const EditNoteForm: FC<EditNoteFormProps> = ({ note }) => {
 			revalidateTag(note.id)
 			revalidateTag("get-notes")
 
-			// router.refresh()
-			router.back()
+			router.refresh()
+			router.push("/dashboard")
 		} catch (error) {
 			console.error(error)
 			setError("Something went wrong. Please try again.")

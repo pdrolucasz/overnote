@@ -1,7 +1,6 @@
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { NextResponse } from "next/server"
-import revalidateTag from "@/components/revalidate-tag"
 
 export async function GET(_: Request, { params }: { params: { id: string } }) {
 	try {
@@ -99,9 +98,6 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 				isPublic: isPublic !== null ? isPublic : note.isPublic,
 			}
 		})
-
-		revalidateTag(note.id)
-		revalidateTag("get-notes")
 
 		return NextResponse.json(note)
 	} catch (error) {

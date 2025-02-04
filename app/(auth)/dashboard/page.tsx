@@ -4,7 +4,7 @@ import { Plus } from "lucide-react"
 
 import { getApiUrl } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { CardUserNote, UserNote } from "@/components/card-user-note"
+import { UserNote } from "@/components/card-user-note"
 
 export default async function Page() {
 	const getCookie = async (name: string) => {
